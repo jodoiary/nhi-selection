@@ -450,9 +450,6 @@
   let selectedGroup = null;
   let submittedGroups = new Set();
 
-  // ── 이전 세션 제출 내역 복원 ──────────────────────────────────────────────
-  const saved = JSON.parse(localStorage.getItem('nhi71-submission') || 'null');
-
   // ── 유틸 ─────────────────────────────────────────────────────────────────
   function show(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -582,6 +579,25 @@
   socket.on('init', ({ votes }) => {
     Object.keys(votes).forEach(n => submittedGroups.add(parseInt(n)));
     buildGrid();
+
+    // 서버 상태와 로컬 제출 기록 대조:
+    // 운영자가 초기화했을 때 소켓이 끊겨 reset 이벤트를 못 받은 경우를 처리
+    const stored = JSON.parse(localStorage.getItem('nhi71-submission') || 'null');
+    if (stored) {
+      if (votes[String(stored.group)]) {
+        // 서버에 여전히 제출 기록이 있으면 완료 화면 유지
+        document.getElementById('doneTitle').textContent = `${stored.group}분임 입력 완료!`;
+        document.getElementById('donePark').textContent = `${stored.park.toFixed(1)}점`;
+        document.getElementById('doneRegion').textContent = `${stored.region.toFixed(1)}점`;
+        show('s-done');
+      } else {
+        // 서버에서 제출 기록이 사라짐 = 운영자가 초기화함 → 다시 입력 가능하게
+        localStorage.removeItem('nhi71-submission');
+        selectedGroup = null;
+        setPark(50);
+        show('s-group');
+      }
+    }
   });
 
   socket.on('vote-update', ({ groupNum }) => {
@@ -601,14 +617,7 @@
   // ── 초기 렌더 ────────────────────────────────────────────────────────────
   setPark(50);
   buildGrid();
-
-  // 이전에 제출한 기록이 있으면 완료 화면 바로 표시
-  if (saved) {
-    document.getElementById('doneTitle').textContent = `${saved.group}분임 입력 완료!`;
-    document.getElementById('donePark').textContent = `${saved.park.toFixed(1)}점`;
-    document.getElementById('doneRegion').textContent = `${saved.region.toFixed(1)}점`;
-    show('s-done');
-  }
+  // 완료 화면 표시는 socket init 핸들러에서 서버 상태를 확인한 후 처리
 </script>
 </body>
 </html>
