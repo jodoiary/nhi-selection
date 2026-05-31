@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NHI 71기 장소 선정 – 분임장 입력</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: linear-gradient(160deg, #0b3d1f 0%, #1a5c35 50%, #0e2d18 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+      padding-top: 8px;
+      width: 100%;
+    }
+    .header .badge {
+      background: rgba(255,215,0,0.15);
+      color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.4);
+      font-size: 11px;
+      font-weight: bold;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+    .header h1 {
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 1.5;
+      color: #e8f5e9;
+    }
+    .header h2 {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 20px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    }
+
+    /* ── Screen management ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── Step label ── */
+    .step-label {
+      font-size: 11px;
+      font-weight: bold;
+      color: #999;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .step-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1a3a28;
+      margin-bottom: 18px;
+      line-height: 1.3;
+    }
+
+    /* ── Group grid ── */
+    .group-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .group-btn {
+      aspect-ratio: 1;
+      border: 2px solid #e0e0e0;
+      background: #f7f7f7;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .group-btn:active { transform: scale(0.93); }
+    .group-btn.selected {
+      background: #1a5c35;
+      border-color: #1a5c35;
+      color: white;
+      transform: scale(1.08);
+      box-shadow: 0 4px 12px rgba(26,92,53,0.4);
+    }
+    .group-btn.submitted {
+      background: #e8f5e9;
+      border-color: #a5d6a7;
+      color: #66bb6a;
+      cursor: default;
+      opacity: 0.7;
+    }
+    .group-btn.submitted::after { content: '✓'; font-size: 12px; }
+
+    /* ── Score input ── */
+    .score-block { margin-bottom: 18px; }
+    .score-block-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .score-block-icon { font-size: 22px; }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .slider-wrap { flex: 1; position: relative; }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"].park-slider {
+      background: linear-gradient(to right, #1a5c35 0%, #e0e0e0 50%);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1a5c35;
+      cursor: pointer;
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    .score-num-input {
+      width: 68px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 6px 4px;
+      outline: none;
+      color: #1a3a28;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .score-num-input:focus { border-color: #1a5c35; }
+
+    /* Region display (read-only) */
+    .region-visual-bar {
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+    .region-visual-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1565c0, #4895ef);
+      border-radius: 3px;
+      transition: width 0.25s;
+    }
+    .score-num-display {
+      width: 68px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      border: 2px solid #cce0ff;
+      border-radius: 10px;
+      padding: 6px 4px;
+      background: #f0f7ff;
+      color: #1565c0;
+    }
+
+    /* Total bar */
+    .total-bar-wrap {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+    .total-bar {
+      display: flex;
+      height: 22px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .bar-park {
+      background: linear-gradient(90deg, #1a5c35, #43a047);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+      transition: width 0.25s;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .bar-region {
+      background: linear-gradient(90deg, #1565c0, #4895ef);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+      transition: width 0.25s;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #666;
+    }
+    .sum-ok { color: #2e7d32; font-weight: bold; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #0b3d1f, #1a5c35);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(26,92,53,0.4);
+    }
+    .btn-primary:active:not(:disabled) { transform: translateY(0); }
+    .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      color: #888;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover { background: #f5f5f5; }
+
+    /* ── Error msg ── */
+    .error-msg {
+      min-height: 18px;
+      font-size: 12px;
+      color: #c62828;
+      text-align: center;
+      margin: 6px 0;
+    }
+
+    /* ── Success screen ── */
+    .success-icon { font-size: 60px; text-align: center; margin-bottom: 12px; }
+    .success-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #1a3a28;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .success-sub {
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .score-summary-box {
+      background: #f0faf4;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .score-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #c8e6c9;
+    }
+    .score-summary-row:last-child { border-bottom: none; }
+    .ss-label { font-size: 14px; color: #555; }
+    .ss-value { font-size: 22px; font-weight: bold; color: #1a5c35; }
+    .ss-value.region { color: #1565c0; }
+    .wait-box {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">NHI 71기 신임관리자과정(공채)</div>
+  <h1>국립공원 봉사활동<br>지방현장체험 장소 선정</h1>
+  <h2>분임장 마일리지 배분 입력</h2>
+</div>
+
+<div class="card">
+
+  <!-- ── Screen 1: 분임 번호 선택 ── -->
+  <div id="s-group" class="screen active">
+    <div class="step-label">STEP 1 / 2</div>
+    <div class="step-title">분임 번호를<br>선택하세요</div>
+    <div class="group-grid" id="groupGrid"></div>
+    <div class="error-msg" id="groupError"></div>
+    <button class="btn-primary" onclick="goToScore()">다음 →</button>
+  </div>
+
+  <!-- ── Screen 2: 마일리지 배분 ── -->
+  <div id="s-score" class="screen">
+    <div class="step-label">STEP 2 / 2 &nbsp;·&nbsp; <span id="selectedLabel"></span>분임</div>
+    <div class="step-title">마일리지 배분<br><small style="font-size:14px; color:#777; font-weight:normal;">합계 100점을 두 항목에 배분하세요</small></div>
+
+    <!-- 국립공원 -->
+    <div class="score-block">
+      <div class="score-block-label">
+        <span class="score-block-icon">🏔️</span> 국립공원 봉사활동
+      </div>
+      <div class="slider-row">
+        <div class="slider-wrap">
+          <input type="range" class="park-slider" id="parkSlider"
+                 min="0" max="100" step="0.1" value="50"
+                 oninput="onSliderInput(this.value)">
+        </div>
+        <input type="number" class="score-num-input" id="parkInput"
+               min="0" max="100" step="0.1" value="50"
+               oninput="onNumInput(this.value)">
+      </div>
+    </div>
+
+    <!-- 지방체험 -->
+    <div class="score-block">
+      <div class="score-block-label">
+        <span class="score-block-icon">🗺️</span> 지방 현장체험
+      </div>
+      <div class="slider-row">
+        <div class="slider-wrap">
+          <div class="region-visual-bar">
+            <div class="region-visual-fill" id="regionBar" style="width:50%;"></div>
+          </div>
+        </div>
+        <div class="score-num-display" id="regionDisplay">50.0</div>
+      </div>
+    </div>
+
+    <!-- 합계 바 -->
+    <div class="total-bar-wrap">
+      <div class="total-bar">
+        <div class="bar-park" id="barPark" style="width:50%;">국립공원</div>
+        <div class="bar-region" id="barRegion" style="width:50%;">지방체험</div>
+      </div>
+      <div class="bar-labels">
+        <span>🏔️ <strong id="lblPark">50.0</strong>점</span>
+        <span class="sum-ok" id="lblSum">합계 100점 ✓</span>
+        <span>🗺️ <strong id="lblRegion">50.0</strong>점</span>
+      </div>
+    </div>
+
+    <div class="error-msg" id="scoreError"></div>
+    <button class="btn-primary" id="submitBtn" onclick="doSubmit()">마일리지 배분 확정</button>
+    <button class="btn-secondary" onclick="goBack()">← 분임 번호 다시 선택</button>
+  </div>
+
+  <!-- ── Screen 3: 완료 ── -->
+  <div id="s-done" class="screen">
+    <div class="success-icon">✅</div>
+    <div class="success-title" id="doneTitle">X분임 완료!</div>
+    <div class="success-sub">마일리지 배분이 제출되었습니다</div>
+    <div class="score-summary-box">
+      <div class="score-summary-row">
+        <span class="ss-label">🏔️ 국립공원 봉사활동</span>
+        <span class="ss-value" id="donePark">—</span>
+      </div>
+      <div class="score-summary-row">
+        <span class="ss-label">🗺️ 지방 현장체험</span>
+        <span class="ss-value region" id="doneRegion">—</span>
+      </div>
+    </div>
+    <div class="wait-box">
+      📺 결과는 운영자 스크린에서 공개됩니다<br>
+      잠시 대기해 주세요
+    </div>
+  </div>
+
+  <!-- ── Screen 4: 이미 제출 ── -->
+  <div id="s-already" class="screen">
+    <div class="success-icon">⚠️</div>
+    <div class="success-title" style="color:#e65100;">이미 제출하셨습니다</div>
+    <div class="success-sub">이 분임의 입력이 이미 완료되었습니다</div>
+    <div class="wait-box">📺 결과는 운영자 스크린에서 공개됩니다</div>
+  </div>
+
+</div><!-- /card -->
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  let selectedGroup = null;
+  let submittedGroups = new Set();
+
+  // ── 이전 세션 제출 내역 복원 ──────────────────────────────────────────────
+  const saved = JSON.parse(localStorage.getItem('nhi71-submission') || 'null');
+
+  // ── 유틸 ─────────────────────────────────────────────────────────────────
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // ── 분임 그리드 초기화 ───────────────────────────────────────────────────
+  function buildGrid() {
+    const grid = document.getElementById('groupGrid');
+    grid.innerHTML = '';
+    for (let i = 1; i <= 18; i++) {
+      const btn = document.createElement('button');
+      btn.id = `gb-${i}`;
+      btn.textContent = i;
+      btn.onclick = () => selectGroup(i);
+      refreshBtn(btn, i);
+      grid.appendChild(btn);
+    }
+  }
+
+  function refreshBtn(btn, i) {
+    if (!btn) btn = document.getElementById(`gb-${i}`);
+    if (!btn) return;
+    if (submittedGroups.has(i)) {
+      btn.className = 'group-btn submitted';
+      btn.disabled = true;
+    } else if (selectedGroup === i) {
+      btn.className = 'group-btn selected';
+      btn.disabled = false;
+    } else {
+      btn.className = 'group-btn';
+      btn.disabled = false;
+    }
+  }
+
+  function selectGroup(num) {
+    if (submittedGroups.has(num)) return;
+    selectedGroup = num;
+    for (let i = 1; i <= 18; i++) refreshBtn(null, i);
+    document.getElementById('groupError').textContent = '';
+  }
+
+  // ── 점수 업데이트 ────────────────────────────────────────────────────────
+  function setPark(val) {
+    let park = Math.round(parseFloat(val) * 10) / 10;
+    if (isNaN(park)) park = 0;
+    park = Math.max(0, Math.min(100, park));
+    const region = Math.round((100 - park) * 10) / 10;
+
+    document.getElementById('parkSlider').value = park;
+    document.getElementById('parkInput').value = park.toFixed(1);
+    document.getElementById('regionDisplay').textContent = region.toFixed(1);
+    document.getElementById('regionBar').style.width = region + '%';
+    document.getElementById('barPark').style.width = park + '%';
+    document.getElementById('barRegion').style.width = region + '%';
+    document.getElementById('lblPark').textContent = park.toFixed(1);
+    document.getElementById('lblRegion').textContent = region.toFixed(1);
+
+    // 슬라이더 채움 색 갱신
+    const slider = document.getElementById('parkSlider');
+    slider.style.background =
+      `linear-gradient(to right, #1a5c35 ${park}%, #e0e0e0 ${park}%)`;
+  }
+
+  function onSliderInput(v) { setPark(v); }
+  function onNumInput(v) { setPark(v); }
+
+  // ── 화면 전환 ────────────────────────────────────────────────────────────
+  function goToScore() {
+    if (!selectedGroup) {
+      document.getElementById('groupError').textContent = '분임 번호를 선택해주세요.';
+      return;
+    }
+    document.getElementById('selectedLabel').textContent = selectedGroup;
+    setPark(50);
+    show('s-score');
+  }
+
+  function goBack() { show('s-group'); }
+
+  // ── 제출 ─────────────────────────────────────────────────────────────────
+  async function doSubmit() {
+    const parkVal = parseFloat(document.getElementById('parkInput').value);
+    if (isNaN(parkVal) || parkVal < 0 || parkVal > 100) {
+      document.getElementById('scoreError').textContent = '올바른 점수를 입력해주세요.';
+      return;
+    }
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('scoreError').textContent = '';
+
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ groupNum: selectedGroup, parkPoints: parkVal }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (data.error && data.error.includes('이미')) {
+          show('s-already');
+        } else {
+          document.getElementById('scoreError').textContent = data.error || '오류가 발생했습니다.';
+          document.getElementById('submitBtn').disabled = false;
+        }
+        return;
+      }
+
+      const park = parkVal;
+      const region = Math.round((100 - park) * 10) / 10;
+      document.getElementById('doneTitle').textContent = `${selectedGroup}분임 입력 완료!`;
+      document.getElementById('donePark').textContent = `${park.toFixed(1)}점`;
+      document.getElementById('doneRegion').textContent = `${region.toFixed(1)}점`;
+
+      localStorage.setItem('nhi71-submission', JSON.stringify({
+        group: selectedGroup, park, region,
+      }));
+      show('s-done');
+
+    } catch (e) {
+      document.getElementById('scoreError').textContent = '서버 연결 오류. 다시 시도해주세요.';
+      document.getElementById('submitBtn').disabled = false;
+    }
+  }
+
+  // ── Socket 이벤트 ────────────────────────────────────────────────────────
+  socket.on('init', ({ votes }) => {
+    Object.keys(votes).forEach(n => submittedGroups.add(parseInt(n)));
+    buildGrid();
+  });
+
+  socket.on('vote-update', ({ groupNum }) => {
+    submittedGroups.add(groupNum);
+    refreshBtn(null, groupNum);
+  });
+
+  socket.on('reset', () => {
+    submittedGroups.clear();
+    selectedGroup = null;
+    localStorage.removeItem('nhi71-submission');
+    setPark(50);
+    buildGrid();
+    show('s-group');
+  });
+
+  // ── 초기 렌더 ────────────────────────────────────────────────────────────
+  setPark(50);
+  buildGrid();
+
+  // 이전에 제출한 기록이 있으면 완료 화면 바로 표시
+  if (saved) {
+    document.getElementById('doneTitle').textContent = `${saved.group}분임 입력 완료!`;
+    document.getElementById('donePark').textContent = `${saved.park.toFixed(1)}점`;
+    document.getElementById('doneRegion').textContent = `${saved.region.toFixed(1)}점`;
+    show('s-done');
+  }
+</script>
+</body>
+</html>

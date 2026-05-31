@@ -1,0 +1,13 @@
+{
+  "name": "nhi-selection",
+  "version": "1.0.0",
+  "description": "NHI 71기 신임관리자과정(공채) 국립공원·지방현장체험 장소 선정 시스템",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}
