@@ -5,204 +5,209 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NHI 71기 장소 선정 – 운영자</title>
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     :root {
-      --bg:      #070f1c;
-      --card:    #0d1b2e;
-      --border:  #1e3350;
+      --bg:      #0e1e35;
+      --card:    #16273f;
+      --card2:   #1c3052;
+      --border:  #2a4a7f;
       --gold:    #ffd700;
-      --green:   #52b788;
-      --green2:  #95d5b2;
-      --blue:    #4895ef;
-      --blue2:   #90c2fc;
-      --text:    #dce8f5;
-      --muted:   #7a9dbf;
+      --green:   #40c97e;
+      --green2:  #8fe6b8;
+      --blue:    #4fa8f5;
+      --blue2:   #9cd0fc;
+      --text:    #e8f0fc;
+      --muted:   #7a9dc0;
+      --r:       12px;
     }
 
     body {
-      background: var(--bg);
+      background: linear-gradient(160deg, #0a1628 0%, #0e1e35 50%, #0a1a30 100%);
       color: var(--text);
-      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
       min-height: 100vh;
     }
 
-    /* HEADER */
+    /* ── HEADER ─────────────────────────────────────── */
     .site-header {
-      background: linear-gradient(90deg, #040b15, #0d1b2e 40%, #040b15);
+      background: linear-gradient(90deg, #061020, #0e1e35 40%, #061020);
       border-bottom: 2px solid var(--gold);
-      padding: 14px 28px;
+      padding: 16px 32px;
       text-align: center;
     }
-    .site-header h1 { font-size: clamp(16px,2.5vw,24px); color: var(--gold); letter-spacing:1px; font-weight:bold; }
-    .site-header h2 { font-size: clamp(11px,1.5vw,14px); color: var(--muted); margin-top:3px; }
+    .site-header h1 { font-size: clamp(17px,2.6vw,26px); color:var(--gold); font-weight:bold; letter-spacing:1.5px; }
+    .site-header h2 { font-size: clamp(12px,1.4vw,15px); color:var(--muted); margin-top:4px; }
 
-    /* ADMIN BAR */
+    /* ── ADMIN BAR ───────────────────────────────────── */
     .admin-bar {
-      background: #080f1a;
+      background: rgba(6,16,32,.9);
       border-bottom: 1px solid var(--border);
-      padding: 8px 28px;
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 9px 32px;
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
     }
     .phase-badge {
-      background: rgba(255,215,0,0.15); color: var(--gold);
-      border: 1px solid rgba(255,215,0,0.35);
-      font-size: 12px; font-weight: bold; padding: 4px 14px; border-radius: 20px;
+      background: rgba(255,215,0,.15); color:var(--gold);
+      border:1px solid rgba(255,215,0,.4);
+      font-size:12px; font-weight:bold; padding:5px 16px; border-radius:20px;
     }
-    .spacer { flex: 1; }
+    .spacer { flex:1; }
 
-    /* STEPPER */
-    .stepper { display:flex; justify-content:center; align-items:center; gap:6px; padding:10px 0; }
+    /* ── STEPPER ─────────────────────────────────────── */
+    .stepper { display:flex; justify-content:center; align-items:center; gap:8px; padding:12px 0; }
     .step-dot { width:10px; height:10px; border-radius:50%; background:var(--border); transition:all .3s; }
-    .step-dot.active { background:var(--gold); transform:scale(1.4); }
+    .step-dot.active { background:var(--gold); transform:scale(1.5); box-shadow:0 0 8px rgba(255,215,0,.6); }
     .step-dot.done   { background:var(--green); }
 
-    /* LAYOUT */
-    .page { padding: 20px 28px 40px; max-width: 1360px; margin: 0 auto; }
+    /* ── PAGE / PHASES ───────────────────────────────── */
+    .page { padding:22px 32px 48px; max-width:1400px; margin:0 auto; }
     .phase-section { display:none; }
     .phase-section.active { display:block; }
 
-    /* CARD */
-    .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:18px; }
-    .card-title { font-size:14px; font-weight:bold; color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:6px; }
+    /* ── CARD ────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+    .card-title { font-size:14px; font-weight:bold; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:6px; }
 
-    /* BUTTONS */
-    .btn { padding:10px 20px; border:none; border-radius:8px; font-family:inherit; font-size:14px; font-weight:bold; cursor:pointer; transition:all .18s; }
-    .btn:hover:not(:disabled) { filter:brightness(1.12); transform:translateY(-1px); }
+    /* ── BUTTONS ─────────────────────────────────────── */
+    .btn { padding:10px 22px; border:none; border-radius:8px; font-family:inherit; font-size:14px; font-weight:bold; cursor:pointer; transition:all .18s; }
+    .btn:hover:not(:disabled) { filter:brightness(1.15); transform:translateY(-1px); }
     .btn:active:not(:disabled) { transform:translateY(0); }
-    .btn:disabled { opacity:.38; cursor:not-allowed; }
-    .btn-gold    { background:var(--gold); color:#070f1c; font-size:15px; padding:12px 30px; }
-    .btn-gold:hover:not(:disabled) { box-shadow:0 4px 18px rgba(255,215,0,.4); }
-    .btn-green   { background:var(--green); color:#070f1c; }
-    .btn-blue    { background:var(--blue);  color:white; }
+    .btn:disabled { opacity:.35; cursor:not-allowed; }
+    .btn-gold    { background:var(--gold); color:#0a1222; font-size:16px; padding:13px 34px; box-shadow:0 4px 14px rgba(255,215,0,.2); }
+    .btn-gold:hover:not(:disabled) { box-shadow:0 6px 22px rgba(255,215,0,.4); }
+    .btn-green   { background:var(--green); color:#051c10; }
+    .btn-blue    { background:var(--blue);  color:#051020; }
     .btn-outline { background:transparent; color:var(--text); border:1px solid var(--border); }
-    .btn-danger  { background:#b91c1c; color:white; }
-    .btn-shuffle { background:#1e3a5f; color:var(--blue2); border:1px solid #2d5080; font-size:14px; padding:10px 22px; }
+    .btn-danger  { background:#c0392b; color:white; }
+    .btn-shuffle { background:var(--card2); color:var(--blue2); border:1px solid var(--border); font-size:14px; padding:10px 24px; }
 
-    /* PHASE 0 – COLLECTING */
-    .progress-hero { text-align:center; margin-bottom:22px; }
-    .progress-big { font-size:clamp(48px,8vw,80px); font-weight:bold; color:var(--gold); line-height:1; }
-    .progress-sub { font-size:16px; color:var(--muted); margin-top:6px; }
-    .prog-bar-outer { height:8px; background:var(--border); border-radius:4px; margin-top:16px; overflow:hidden; }
-    .prog-bar-inner { height:100%; background:linear-gradient(90deg,var(--green),var(--green2)); border-radius:4px; transition:width .5s; }
+    /* ── PHASE 0 ─────────────────────────────────────── */
+    .progress-hero { text-align:center; margin-bottom:24px; }
+    .progress-big  { font-size:clamp(52px,9vw,88px); font-weight:bold; color:var(--gold); line-height:1; text-shadow:0 0 30px rgba(255,215,0,.3); }
+    .progress-sub  { font-size:16px; color:var(--muted); margin-top:6px; }
+    .prog-bar-outer { height:10px; background:var(--card2); border-radius:5px; margin-top:18px; overflow:hidden; }
+    .prog-bar-inner { height:100%; background:linear-gradient(90deg,var(--green),var(--green2)); border-radius:5px; transition:width .5s; }
+
     .status-grid { display:grid; grid-template-columns:repeat(9,1fr); gap:10px; }
-    .sg-item { background:var(--border); border-radius:10px; padding:10px 6px; text-align:center; transition:all .35s; position:relative; }
-    .sg-item.submitted { background:linear-gradient(135deg,#0b3d1f,#1a5c35); border:1px solid var(--green); box-shadow:0 0 10px rgba(82,183,136,.3); }
-    .sg-item .sg-num  { font-size:17px; font-weight:bold; }
-    .sg-item .sg-lbl  { font-size:10px; color:var(--muted); margin-top:2px; }
+    .sg-item {
+      background:var(--card2); border:1px solid var(--border);
+      border-radius:10px; padding:12px 6px; text-align:center; transition:all .35s; position:relative;
+    }
+    .sg-item.submitted {
+      background:linear-gradient(135deg,#0a2e1a,#154d2c);
+      border:1px solid var(--green);
+      box-shadow:0 0 12px rgba(64,201,126,.25);
+    }
+    .sg-num  { font-size:18px; font-weight:bold; }
+    .sg-lbl  { font-size:10px; color:var(--muted); margin-top:3px; }
     .sg-item.submitted .sg-lbl { color:var(--green2); }
     .sg-check { position:absolute; top:-5px; right:-3px; font-size:14px; display:none; }
     .sg-item.submitted .sg-check { display:block; }
-    .url-box { background:rgba(255,215,0,.07); border:1px solid rgba(255,215,0,.3); border-radius:10px; padding:12px 18px; text-align:center; }
-    .url-text { font-family:monospace; font-size:20px; color:var(--gold); font-weight:bold; }
 
-    /* PHASE 1 – SCORE REVEAL: TWO TABLES */
-    .two-tables { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    /* ── PHASE 1 – TWO TABLES ────────────────────────── */
+    .two-tables { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:16px; }
     .score-tbl { width:100%; border-collapse:collapse; }
-    .score-tbl th { background:rgba(255,215,0,.08); color:var(--gold); padding:10px 12px; font-size:13px; border-bottom:1px solid var(--border); text-align:center; }
-    .score-tbl td { padding:9px 12px; text-align:center; border-bottom:1px solid #111d2e; font-size:14px; }
-    .score-tbl tr:hover td { background:rgba(255,255,255,.02); }
-    .td-rank   { color:var(--gold); font-weight:bold; font-size:16px; }
+    .score-tbl th { background:rgba(255,215,0,.09); color:var(--gold); padding:11px 14px; font-size:13px; border-bottom:1px solid var(--border); text-align:center; }
+    .score-tbl td { padding:10px 14px; text-align:center; border-bottom:1px solid rgba(255,255,255,.04); font-size:14px; }
+    .score-tbl tr:hover td { background:rgba(255,255,255,.03); }
+    .td-rank   { color:var(--gold); font-weight:bold; font-size:17px; }
     .td-group  { font-weight:bold; font-size:15px; }
-    .td-park   { color:var(--green2); font-weight:bold; }
-    .td-region { color:var(--blue2);  font-weight:bold; }
-    .tie-badge { background:rgba(255,100,50,.18); color:#ff7f5a; border:1px solid #ff7f5a; border-radius:4px; font-size:10px; padding:2px 6px; margin-left:4px; }
+    .td-park   { color:var(--green2); font-weight:bold; font-size:15px; }
+    .td-region { color:var(--blue2);  font-weight:bold; font-size:15px; }
+    .tie-badge { background:rgba(255,120,60,.18); color:#ff8855; border:1px solid #ff8855; border-radius:4px; font-size:10px; padding:2px 7px; }
 
-    /* PHASE 2 – LADDER */
-    .ladder-canvas-wrap { text-align:center; overflow-x:auto; }
+    /* ── PHASE 2 – LADDER ────────────────────────────── */
+    .ladder-canvas-wrap { text-align:center; overflow-x:auto; padding:8px 0; }
     canvas.ladder-cv { border-radius:10px; display:inline-block; }
-    .ladder-result-section { margin-top:18px; }
-    .tie-result-block { background:rgba(255,215,0,.05); border:1px solid rgba(255,215,0,.2); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
-    .tie-result-title { font-size:12px; color:var(--muted); margin-bottom:10px; }
-    .lri-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-    .lri { background:var(--border); border-radius:10px; padding:10px 16px; text-align:center; min-width:100px; }
-    .lri-group  { font-size:18px; font-weight:bold; color:var(--gold); }
-    .lri-park   { font-size:12px; color:var(--green2); margin-top:3px; }
-    .lri-region { font-size:12px; color:var(--blue2); margin-top:1px; }
+    .lri-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:14px; }
+    .lri { background:var(--card2); border-radius:10px; padding:12px 18px; text-align:center; min-width:100px; }
+    .lri-group  { font-size:19px; font-weight:bold; color:var(--gold); }
+    .lri-park   { font-size:12px; color:var(--green2); margin-top:4px; }
+    .lri-region { font-size:12px; color:var(--blue2);  margin-top:2px; }
 
-    /* PHASE 3 & 4 – SELECTION (improved) */
-    /* Current selector banner */
+    /* ── PHASE 3 & 4 – SELECTION ─────────────────────── */
     .sel-banner {
-      background: linear-gradient(90deg, #0b3d1f, #1a5c35);
+      background: linear-gradient(90deg,#0a2e1a,#154d2c);
       border: 1px solid var(--green);
-      border-radius: 12px;
-      padding: 16px 24px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      border-radius: var(--r);
+      padding: 18px 28px;
+      margin-bottom: 18px;
+      display:flex; align-items:center; gap:20px;
+      box-shadow: 0 0 20px rgba(64,201,126,.15);
     }
-    .sel-banner.blue-theme { background:linear-gradient(90deg,#0a1f4d,#1a3a7c); border-color:var(--blue); }
-    .sel-banner-num { font-size:42px; font-weight:bold; color:var(--gold); line-height:1; min-width:60px; text-align:center; }
-    .sel-banner-info { flex:1; }
-    .sel-banner-title { font-size:20px; font-weight:bold; color:white; }
-    .sel-banner-sub   { font-size:13px; color:var(--green2); margin-top:3px; }
+    .sel-banner.blue-theme { background:linear-gradient(90deg,#0a1a40,#13285c); border-color:var(--blue); box-shadow:0 0 20px rgba(79,168,245,.15); }
+    .sel-banner-num   { font-size:46px; font-weight:bold; color:var(--gold); line-height:1; min-width:120px; text-align:center; }
+    .sel-banner-title { font-size:22px; font-weight:bold; color:white; }
+    .sel-banner-sub   { font-size:14px; color:var(--green2); margin-top:4px; }
     .sel-banner.blue-theme .sel-banner-sub { color:var(--blue2); }
 
-    /* Two-column selection layout */
-    .sel-layout { display:grid; grid-template-columns:260px 1fr; gap:16px; align-items:start; }
-    .rank-list { list-style:none; max-height:500px; overflow-y:auto; }
+    /* Selection two-column: wider rank list */
+    .sel-layout { display:grid; grid-template-columns:380px 1fr; gap:18px; align-items:start; }
+
+    .rank-list { list-style:none; max-height:520px; overflow-y:auto; padding-right:4px; }
+    .rank-list::-webkit-scrollbar { width:4px; }
+    .rank-list::-webkit-scrollbar-track { background:var(--card2); border-radius:2px; }
+    .rank-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
     .rank-item {
-      display:flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:7px; margin-bottom:6px;
-      background:var(--border); font-size:13px; transition:all .25s;
+      display:flex; align-items:center; gap:12px;
+      padding:11px 14px; border-radius:9px; margin-bottom:7px;
+      background:var(--card2); border:1px solid transparent;
+      font-size:14px; transition:all .25s;
     }
-    .rank-item.current { background:linear-gradient(90deg,#0b3d1f,#1a5c35); border:1px solid var(--green); }
-    .rank-item.current.blue { background:linear-gradient(90deg,#0a1f4d,#1a3a7c); border-color:var(--blue); }
-    .rank-item.done { opacity:.4; }
-    .ri-pos   { font-weight:bold; font-size:14px; min-width:20px; color:var(--muted); }
+    .rank-item.current { background:linear-gradient(90deg,#0a2e1a,#154d2c); border-color:var(--green); box-shadow:0 0 14px rgba(64,201,126,.2); }
+    .rank-item.current.blue { background:linear-gradient(90deg,#0a1a40,#13285c); border-color:var(--blue); box-shadow:0 0 14px rgba(79,168,245,.2); }
+    .rank-item.done { opacity:.38; }
+    .ri-pos   { font-weight:bold; font-size:16px; min-width:26px; color:var(--muted); }
     .rank-item.current .ri-pos { color:var(--gold); }
     .ri-info  { flex:1; }
-    .ri-group { font-weight:bold; font-size:14px; }
-    .ri-score { font-size:11px; color:var(--muted); }
-    .ri-assigned { font-size:12px; color:var(--green); font-weight:bold; margin-top:1px; }
+    .ri-group { font-weight:bold; font-size:16px; }
+    .ri-score { font-size:12px; color:var(--muted); margin-top:2px; }
+    .ri-assigned { font-size:13px; color:var(--green); font-weight:bold; margin-top:3px; }
     .ri-assigned.blue { color:var(--blue2); }
 
-    /* Place grid */
-    .place-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .place-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
     .place-card {
-      background:var(--border); border:2px solid transparent; border-radius:10px;
-      padding:14px 8px; text-align:center; cursor:pointer; transition:all .18s;
+      background:var(--card2); border:2px solid transparent;
+      border-radius:10px; padding:16px 10px; text-align:center;
+      cursor:pointer; transition:all .18s;
     }
-    .place-card:hover:not(.full) { border-color:var(--green); background:rgba(82,183,136,.12); transform:scale(1.03); }
-    .place-card.blue-theme:hover:not(.full) { border-color:var(--blue); background:rgba(72,149,239,.12); }
-    .place-card.full { opacity:.35; cursor:not-allowed; }
-    .pc-name { font-size:15px; font-weight:bold; margin-bottom:4px; }
-    .pc-cap  { font-size:11px; color:var(--muted); }
-    .pc-who  { font-size:10px; color:var(--green); margin-top:4px; line-height:1.4; }
+    .place-card:hover:not(.full) { border-color:var(--green); background:rgba(64,201,126,.1); transform:scale(1.03); }
+    .place-card.blue-theme:hover:not(.full) { border-color:var(--blue); background:rgba(79,168,245,.1); }
+    .place-card.full { opacity:.3; cursor:not-allowed; }
+    .pc-name { font-size:16px; font-weight:bold; margin-bottom:5px; }
+    .pc-cap  { font-size:12px; color:var(--muted); }
+    .pc-who  { font-size:11px; color:var(--green); margin-top:5px; line-height:1.5; }
     .pc-who.blue { color:var(--blue2); }
 
-    .undo-row { display:flex; align-items:center; gap:10px; margin-top:12px; }
+    .undo-row { display:flex; gap:10px; margin-top:14px; }
 
-    /* PHASE 5 – SUMMARY */
-    .summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    /* ── PHASE 5 – SUMMARY ───────────────────────────── */
+    .summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
     .sum-tbl { width:100%; border-collapse:collapse; }
-    .sum-tbl th { padding:9px; background:rgba(255,215,0,.08); color:var(--gold); font-size:13px; border-bottom:1px solid var(--border); text-align:center; }
-    .sum-tbl td { padding:8px 10px; font-size:13px; border-bottom:1px solid #111d2e; text-align:center; }
+    .sum-tbl th { padding:10px; background:rgba(255,215,0,.09); color:var(--gold); font-size:13px; border-bottom:1px solid var(--border); text-align:center; }
+    .sum-tbl td { padding:9px 12px; font-size:14px; border-bottom:1px solid rgba(255,255,255,.04); text-align:center; }
 
-    /* OVERLAY */
-    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.72); z-index:200; align-items:center; justify-content:center; }
+    /* ── OVERLAY ─────────────────────────────────────── */
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; align-items:center; justify-content:center; }
     .overlay.show { display:flex; }
-    .overlay-box { background:var(--card); border:2px solid var(--gold); border-radius:16px; padding:32px; text-align:center; max-width:340px; width:90%; }
-    .overlay-box h3 { font-size:20px; color:var(--gold); margin-bottom:10px; }
-    .overlay-box p  { color:var(--muted); margin-bottom:22px; font-size:14px; line-height:1.6; }
+    .overlay-box { background:var(--card); border:2px solid var(--gold); border-radius:16px; padding:34px; text-align:center; max-width:340px; width:90%; }
+    .overlay-box h3 { font-size:20px; color:var(--gold); margin-bottom:12px; }
+    .overlay-box p  { color:var(--muted); margin-bottom:24px; font-size:14px; line-height:1.7; }
     .overlay-btns   { display:flex; gap:12px; justify-content:center; }
 
-    /* ANIMATIONS */
-    .fade-in { animation:fadeIn .4s ease both; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    /* ── ANIMATIONS ──────────────────────────────────── */
+    .fade-in { animation:fadeIn .45s ease both; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
-    @media (max-width:900px) {
-      .status-grid  { grid-template-columns:repeat(6,1fr); }
-      .two-tables   { grid-template-columns:1fr; }
-      .sel-layout   { grid-template-columns:1fr; }
-      .summary-grid { grid-template-columns:1fr; }
-      .place-grid   { grid-template-columns:repeat(2,1fr); }
-    }
-    @media (max-width:520px) {
-      .page        { padding:12px; }
-      .status-grid { grid-template-columns:repeat(3,1fr); }
-    }
+    @media (max-width:960px)  { .status-grid{grid-template-columns:repeat(6,1fr);} .two-tables{grid-template-columns:1fr;} .sel-layout{grid-template-columns:1fr;} .summary-grid{grid-template-columns:1fr;} .place-grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:520px)  { .page{padding:14px;} .status-grid{grid-template-columns:repeat(3,1fr);} .admin-bar{padding:8px 14px;} }
   </style>
 </head>
 <body>
@@ -230,34 +235,29 @@
 
 <main class="page">
 
-  <!-- ═══ PHASE 0 – 수집 ═══ -->
+  <!-- ══ PHASE 0 – 수집 ══ -->
   <div id="p0" class="phase-section active">
     <div class="card">
       <div class="progress-hero">
         <div class="progress-big">
-          <span id="cntNum">0</span><span style="font-size:40%;color:var(--muted);">/18</span>
+          <span id="cntNum">0</span><span style="font-size:38%;color:var(--muted);">/18</span>
         </div>
-        <div class="progress-sub">분임 입력 완료</div>
+        <div class="progress-sub">분임 마일리지 입력 완료</div>
         <div class="prog-bar-outer"><div class="prog-bar-inner" id="progBar" style="width:0%"></div></div>
       </div>
       <div class="card-title">📋 분임별 입력 현황</div>
       <div class="status-grid" id="statusGrid"></div>
     </div>
-    <div class="card">
-      <div class="card-title">📱 분임장 접속 정보</div>
-      <div class="url-box">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">분임장 입력 주소</div>
-        <div class="url-text" id="playerUrl">https://nhi-selection.onrender.com</div>
-        <div id="qrcode" style="margin-top:12px;display:inline-block;"></div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:8px;">
+
+    <div style="text-align:center; margin-top:12px;">
       <button class="btn btn-gold" id="btnReveal" onclick="doReveal()" disabled>🎯 결과 공개</button>
-      <div style="font-size:12px;color:var(--muted);margin-top:8px;" id="revealHint">18개 분임이 모두 입력하면 활성화됩니다</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px;" id="revealHint">
+        18개 분임이 모두 입력하면 활성화됩니다
+      </div>
     </div>
   </div>
 
-  <!-- ═══ PHASE 1 – 점수 공개 (TWO TABLES) ═══ -->
+  <!-- ══ PHASE 1 – 점수 공개 ══ -->
   <div id="p1" class="phase-section">
     <div class="two-tables">
       <div class="card">
@@ -279,12 +279,12 @@
         </div>
       </div>
     </div>
-    <div style="text-align:right;margin-top:4px;">
+    <div style="text-align:right;">
       <button class="btn btn-gold" onclick="goPhase2()">다음: 사다리타기 →</button>
     </div>
   </div>
 
-  <!-- ═══ PHASE 2 – 사다리타기 ═══ -->
+  <!-- ══ PHASE 2 – 사다리타기 ══ -->
   <div id="p2" class="phase-section">
     <div id="ladderArea"></div>
     <div style="text-align:center;margin-top:18px;">
@@ -294,86 +294,80 @@
     </div>
   </div>
 
-  <!-- ═══ PHASE 3 – 국립공원 선택 ═══ -->
+  <!-- ══ PHASE 3 – 국립공원 선택 ══ -->
   <div id="p3" class="phase-section">
-    <!-- 현재 선택자 배너 -->
     <div class="sel-banner" id="parkBanner">
       <div class="sel-banner-num" id="parkBannerNum">—</div>
       <div class="sel-banner-info">
         <div class="sel-banner-title" id="parkBannerTitle">국립공원 봉사활동 장소 선정</div>
-        <div class="sel-banner-sub" id="parkBannerSub">우선순위 순서대로 장소를 클릭하여 배정하세요</div>
+        <div class="sel-banner-sub"   id="parkBannerSub">우선순위 순서대로 장소를 클릭하여 배정하세요</div>
       </div>
     </div>
-
     <div class="sel-layout">
-      <div class="card" style="padding:14px;">
-        <div class="card-title" style="font-size:13px;">선택 순서</div>
+      <div class="card" style="padding:16px;">
+        <div class="card-title">선택 순서</div>
         <ul class="rank-list" id="parkRankList"></ul>
-        <div class="undo-row" style="margin-top:8px;">
-          <button class="btn btn-outline" style="font-size:12px;padding:7px 12px;" onclick="undoPark()" id="undoParkBtn" disabled>↩ 취소</button>
-          <button class="btn btn-outline" style="font-size:12px;padding:7px 12px;" onclick="skipPark()">건너뛰기</button>
+        <div class="undo-row">
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 14px;" onclick="undoPark()"  id="undoParkBtn" disabled>↩ 마지막 취소</button>
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 14px;" onclick="skipPark()">건너뛰기</button>
         </div>
       </div>
-      <div class="card" style="padding:16px;">
+      <div class="card" style="padding:18px;">
         <div class="card-title">🏔️ 국립공원 선택 (클릭하여 배정)</div>
         <div class="place-grid" id="parkGrid"></div>
       </div>
     </div>
-
-    <div style="text-align:center;margin-top:14px;">
+    <div style="text-align:center;margin-top:16px;">
       <button class="btn btn-gold" id="btnToRegion" onclick="startRegionPhase()" style="display:none;">
         지방체험 선택 시작 →
       </button>
     </div>
   </div>
 
-  <!-- ═══ PHASE 4 – 지방체험 선택 ═══ -->
+  <!-- ══ PHASE 4 – 지방체험 선택 ══ -->
   <div id="p4" class="phase-section">
-    <!-- 현재 선택자 배너 -->
-    <div class="sel-banner blue-theme" id="regionBanner">
+    <div class="sel-banner blue-theme">
       <div class="sel-banner-num" id="regionBannerNum">—</div>
       <div class="sel-banner-info">
         <div class="sel-banner-title" id="regionBannerTitle">지방 현장체험 장소 선정</div>
-        <div class="sel-banner-sub" id="regionBannerSub">우선순위 순서대로 지방을 클릭하여 배정하세요</div>
+        <div class="sel-banner-sub"   id="regionBannerSub">우선순위 순서대로 지방을 클릭하여 배정하세요</div>
       </div>
     </div>
-
     <div class="sel-layout">
-      <div class="card" style="padding:14px;">
-        <div class="card-title" style="font-size:13px;">선택 순서</div>
+      <div class="card" style="padding:16px;">
+        <div class="card-title">선택 순서</div>
         <ul class="rank-list" id="regionRankList"></ul>
-        <div class="undo-row" style="margin-top:8px;">
-          <button class="btn btn-outline" style="font-size:12px;padding:7px 12px;" onclick="undoRegion()" id="undoRegionBtn" disabled>↩ 취소</button>
-          <button class="btn btn-outline" style="font-size:12px;padding:7px 12px;" onclick="skipRegion()">건너뛰기</button>
+        <div class="undo-row">
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 14px;" onclick="undoRegion()"  id="undoRegionBtn" disabled>↩ 마지막 취소</button>
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 14px;" onclick="skipRegion()">건너뛰기</button>
         </div>
       </div>
-      <div class="card" style="padding:16px;">
+      <div class="card" style="padding:18px;">
         <div class="card-title">🗺️ 지방 선택 (클릭하여 배정)</div>
         <div class="place-grid" id="regionGrid"></div>
       </div>
     </div>
-
-    <div style="text-align:center;margin-top:14px;">
+    <div style="text-align:center;margin-top:16px;">
       <button class="btn btn-gold" id="btnToSummary" onclick="buildSummary()" style="display:none;">
         최종 결과 보기 →
       </button>
     </div>
   </div>
 
-  <!-- ═══ PHASE 5 – 최종 결과 ═══ -->
+  <!-- ══ PHASE 5 – 최종 결과 ══ -->
   <div id="p5" class="phase-section">
     <div class="card">
       <div class="card-title">🎉 최종 배정 결과</div>
       <div class="summary-grid">
         <div>
-          <h3 style="color:var(--green);margin-bottom:12px;font-size:16px;">🏔️ 국립공원 봉사활동</h3>
+          <h3 style="color:var(--green);margin-bottom:14px;font-size:16px;">🏔️ 국립공원 봉사활동</h3>
           <table class="sum-tbl">
             <thead><tr><th>분임</th><th>배정 국립공원</th><th>배분점수</th></tr></thead>
             <tbody id="sumPark"></tbody>
           </table>
         </div>
         <div>
-          <h3 style="color:var(--blue2);margin-bottom:12px;font-size:16px;">🗺️ 지방 현장체험</h3>
+          <h3 style="color:var(--blue2);margin-bottom:14px;font-size:16px;">🗺️ 지방 현장체험</h3>
           <table class="sum-tbl">
             <thead><tr><th>분임</th><th>배정 지방</th><th>배분점수</th></tr></thead>
             <tbody id="sumRegion"></tbody>
@@ -385,11 +379,10 @@
 
 </main>
 
-<!-- RESET OVERLAY -->
 <div class="overlay" id="confirmOverlay">
   <div class="overlay-box">
     <h3>⚠️ 초기화 확인</h3>
-    <p>모든 입력 데이터와 배정 결과가<br>삭제됩니다. 계속하시겠습니까?</p>
+    <p>모든 입력 데이터와<br>배정 결과가 삭제됩니다.<br>계속하시겠습니까?</p>
     <div class="overlay-btns">
       <button class="btn btn-danger"  onclick="doReset()">초기화</button>
       <button class="btn btn-outline" onclick="closeConfirm()">취소</button>
@@ -397,13 +390,12 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  CONSTANTS
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 const PARKS = [
   {name:'지리산',cap:3},{name:'내장산',cap:3},{name:'북한산',cap:3},
   {name:'소백산',cap:3},{name:'무등산',cap:3},{name:'태안해안',cap:3},
@@ -414,673 +406,431 @@ const REGIONS = [
   {name:'대구',cap:2},{name:'경북',cap:1},{name:'광주',cap:2},
   {name:'전남',cap:1},{name:'강원',cap:2},{name:'전북',cap:2},
 ];
-const PHASE_NAMES = ['수집 중','점수 공개','사다리타기','국립공원 선택','지방체험 선택','최종 결과'];
-// 동점 그룹 구분 색상
-const TIE_COLORS = ['#ffd700','#74c0fc','#69db7c','#ffa94d','#f783ac','#e599f7'];
+const PHASE_NAMES  = ['수집 중','점수 공개','사다리타기','국립공원 선택','지방체험 선택','최종 결과'];
+const TIE_COLORS   = ['#ffd700','#74c0fc','#69db7c','#ffa94d','#f783ac','#e599f7'];
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  STATE
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 let votes = {};
-let parkRanking  = [];
-let regionRanking = [];
-let tieGroups    = []; // [[1,4],[2,7],...]
-let combinedLadder = null; // ONE ladder for all tied groups
-let ladderConfirmed = false;
-let ladderResults = {}; // {groupNum:{park,region}}
+let parkRanking = [], regionRanking = [];
+let tieGroups = [];           // [[1,4], [2,7], ...]
+let ladders = [];             // LadderGame per tie group
+let ladderDone = [];          // confirmed flag per group
+let ladderResults = {};       // {num:{park,region}}
 
-let parkAssigned   = {}, regionAssigned  = {};
-let parkCounts     = {}, regionCounts    = {};
-let parkIdx = 0, regionIdx = 0;
-let parkHistory = [], regionHistory = [];
+let parkAssigned={}, regionAssigned={};
+let parkCounts={},   regionCounts={};
+let parkIdx=0,       regionIdx=0;
+let parkHistory=[],  regionHistory=[];
 
-// ═══════════════════════════════════════════════════════════════════
-//  LADDER GAME CLASS
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
+//  LADDER GAME
+// ════════════════════════════════════════════════
 class LadderGame {
-  /**
-   * @param {number[]} groups  - all participants (all tied groups flattened)
-   * @param {number[][]} tieGroupsList - original tie groups for coloring
-   */
-  constructor(groups, tieGroupsList) {
-    this.groups        = groups;
-    this.tieGroupsList = tieGroupsList || [groups];
-    this.n             = groups.length;
-    this.rows          = 12;
-    this.bridges       = [];
-    this.positions     = [];
+  constructor(groups) {
+    this.groups = groups;
+    this.n      = groups.length;
+    this.rows   = 11;
+    this.bridges= [];
+    this.positions=[];
     this.shuffle();
   }
-
   shuffle() {
-    this.bridges = [];
-    for (let r = 0; r < this.rows; r++) {
-      const used = new Set();
-      for (let c = 0; c < this.n - 1; c++) {
-        if (!used.has(c) && !used.has(c - 1)) {
-          if (Math.random() < 0.48) {
-            this.bridges.push({r, c});
-            used.add(c);
-          }
+    this.bridges=[];
+    for (let r=0; r<this.rows; r++) {
+      const used=new Set();
+      for (let c=0; c<this.n-1; c++) {
+        if (!used.has(c) && !used.has(c-1) && Math.random()<0.48) {
+          this.bridges.push({r,c}); used.add(c);
         }
       }
     }
     this._compute();
   }
-
   _compute() {
-    this.positions = [];
-    for (let start = 0; start < this.n; start++) {
-      let col = start;
-      for (let r = 0; r < this.rows; r++) {
-        const right = this.bridges.find(b => b.r === r && b.c === col);
-        const left  = this.bridges.find(b => b.r === r && b.c === col - 1);
-        if (right)     col++;
-        else if (left) col--;
+    this.positions=[];
+    for (let s=0; s<this.n; s++) {
+      let col=s;
+      for (let r=0; r<this.rows; r++) {
+        const R=this.bridges.find(b=>b.r===r&&b.c===col);
+        const L=this.bridges.find(b=>b.r===r&&b.c===col-1);
+        if(R) col++; else if(L) col--;
       }
       this.positions.push(col);
     }
   }
-
-  /** Returns color for a group based on which tie group it belongs to */
-  groupColor(g) {
-    for (let i = 0; i < this.tieGroupsList.length; i++) {
-      if (this.tieGroupsList[i].includes(g)) return TIE_COLORS[i % TIE_COLORS.length];
-    }
-    return '#aaa';
-  }
+  parkRanks()   { const m={}; this.groups.forEach((g,i)=>{m[g]=this.positions[i];}); return m; }
+  regionRanks() { const pr=this.parkRanks(); const m={}; this.groups.forEach(g=>{m[g]=(this.n-1)-pr[g];}); return m; }
 
   draw(cid, showPaths) {
-    const cv = document.getElementById(cid);
-    if (!cv) return;
-    const ctx = cv.getContext('2d');
+    const cv=document.getElementById(cid); if(!cv) return;
+    const ctx=cv.getContext('2d');
+    const colGap=Math.max(65, Math.min(95,(window.innerWidth*0.55)/(this.n||1)));
+    const rowGap=34, padX=68, padYTop=50, padYBot=54;
+    cv.width=padX*2+colGap*(this.n-1);
+    cv.height=padYTop+rowGap*this.rows+padYBot;
+    const X=c=>padX+c*colGap, Y=r=>padYTop+r*rowGap;
 
-    const colGap  = Math.max(60, Math.min(90, (window.innerWidth * 0.65) / (this.n || 1)));
-    const rowGap  = 32;
-    const padX    = 60;
-    const padYTop = 50;
-    const padYBot = 52;
+    // bg
+    ctx.fillStyle='#0a1628'; ctx.fillRect(0,0,cv.width,cv.height);
 
-    cv.width  = padX * 2 + colGap * (this.n - 1);
-    cv.height = padYTop + rowGap * this.rows + padYBot;
-
-    const X = c => padX + c * colGap;
-    const Y = r => padYTop + r * rowGap;
-
-    // background
-    ctx.fillStyle = '#070f1c';
-    ctx.fillRect(0, 0, cv.width, cv.height);
-
-    // Draw dividers between tie groups (subtle vertical lines)
-    if (this.tieGroupsList.length > 1) {
-      let col = 0;
-      for (let ti = 0; ti < this.tieGroupsList.length - 1; ti++) {
-        col += this.tieGroupsList[ti].length;
-        const divX = (X(col - 1) + X(col)) / 2;
-        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-        ctx.lineWidth = 1;
-        ctx.setLineDash([4, 4]);
-        ctx.beginPath();
-        ctx.moveTo(divX, padYTop - 35);
-        ctx.lineTo(divX, Y(this.rows) + padYBot - 5);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
+    // vertical lines
+    ctx.lineWidth=2.5;
+    for(let c=0;c<this.n;c++){
+      ctx.strokeStyle='#2a4a7f';
+      ctx.beginPath(); ctx.moveTo(X(c),Y(0)); ctx.lineTo(X(c),Y(this.rows)); ctx.stroke();
     }
-
-    // vertical lines (colored by tie group)
-    ctx.lineWidth = 2.5;
-    for (let c = 0; c < this.n; c++) {
-      ctx.strokeStyle = this.groupColor(this.groups[c]) + '55'; // semi-transparent
-      ctx.beginPath();
-      ctx.moveTo(X(c), Y(0));
-      ctx.lineTo(X(c), Y(this.rows));
-      ctx.stroke();
-    }
-
     // bridges
-    ctx.lineWidth = 2.5;
-    for (const b of this.bridges) {
-      // Color based on which tie group the left column belongs to
-      const leftGroup = this.groups[b.c];
-      ctx.strokeStyle = this.groupColor(leftGroup) + 'aa';
-      ctx.beginPath();
-      ctx.moveTo(X(b.c), Y(b.r) + rowGap / 2);
-      ctx.lineTo(X(b.c + 1), Y(b.r) + rowGap / 2);
-      ctx.stroke();
+    for(const b of this.bridges){
+      ctx.strokeStyle='#4fa8f5'; ctx.lineWidth=2.5;
+      ctx.beginPath(); ctx.moveTo(X(b.c),Y(b.r)+rowGap/2); ctx.lineTo(X(b.c+1),Y(b.r)+rowGap/2); ctx.stroke();
     }
-
-    // paths when revealed
-    if (showPaths) {
-      ctx.lineWidth = 2.5;
-      for (let start = 0; start < this.n; start++) {
-        const color = this.groupColor(this.groups[start]);
-        ctx.strokeStyle = color;
-        ctx.setLineDash([5, 3]);
-        let col = start;
-        ctx.beginPath();
-        ctx.moveTo(X(col), Y(0));
-        for (let r = 0; r < this.rows; r++) {
-          const midY = Y(r) + rowGap / 2;
-          ctx.lineTo(X(col), midY);
-          const right = this.bridges.find(b => b.r === r && b.c === col);
-          const left  = this.bridges.find(b => b.r === r && b.c === col - 1);
-          if (right)     { col++; ctx.lineTo(X(col), midY); }
-          else if (left) { col--; ctx.lineTo(X(col), midY); }
+    // paths
+    if(showPaths){
+      const COLS=['#ff6b6b','#ffd700','#51cf66','#74c0fc','#f783ac','#fab005','#e599f7','#ff922b'];
+      ctx.lineWidth=2.5;
+      for(let s=0;s<this.n;s++){
+        ctx.strokeStyle=COLS[s%COLS.length]; ctx.setLineDash([5,3]);
+        let col=s; ctx.beginPath(); ctx.moveTo(X(col),Y(0));
+        for(let r=0;r<this.rows;r++){
+          const midY=Y(r)+rowGap/2; ctx.lineTo(X(col),midY);
+          const R=this.bridges.find(b=>b.r===r&&b.c===col);
+          const L=this.bridges.find(b=>b.r===r&&b.c===col-1);
+          if(R){col++;ctx.lineTo(X(col),midY);} else if(L){col--;ctx.lineTo(X(col),midY);}
         }
-        ctx.lineTo(X(col), Y(this.rows));
-        ctx.stroke();
+        ctx.lineTo(X(col),Y(this.rows)); ctx.stroke();
       }
       ctx.setLineDash([]);
     }
-
     // top labels
-    ctx.textAlign = 'center';
-    ctx.font = 'bold 13px Malgun Gothic, sans-serif';
-    for (let c = 0; c < this.n; c++) {
-      const g = this.groups[c];
-      ctx.fillStyle = this.groupColor(g);
-      ctx.fillText(`${g}분임`, X(c), padYTop - 12);
+    ctx.font='bold 14px Malgun Gothic,sans-serif'; ctx.textAlign='center';
+    for(let c=0;c<this.n;c++){
+      ctx.fillStyle='#ffd700'; ctx.fillText(`${this.groups[c]}분임`,X(c),padYTop-12);
     }
-
-    // tie group labels at top
-    if (this.tieGroupsList.length > 1) {
-      ctx.font = '10px Malgun Gothic, sans-serif';
-      let col = 0;
-      for (let ti = 0; ti < this.tieGroupsList.length; ti++) {
-        const tg   = this.tieGroupsList[ti];
-        const midC = col + (tg.length - 1) / 2;
-        ctx.fillStyle = TIE_COLORS[ti % TIE_COLORS.length] + 'cc';
-        ctx.fillText(`동점그룹${ti + 1}`, X(midC), padYTop - 28);
-        col += tg.length;
-      }
-    }
-
     // bottom labels
-    ctx.font = '11px Malgun Gothic, sans-serif';
-    if (!showPaths) {
-      for (let c = 0; c < this.n; c++) {
-        ctx.fillStyle = '#445566';
-        ctx.fillText('?', X(c), Y(this.rows) + 22);
-      }
-    } else {
-      // Show which group landed at each bottom position
-      for (let start = 0; start < this.n; start++) {
-        const finalCol = this.positions[start];
-        const g        = this.groups[start];
-        ctx.fillStyle  = this.groupColor(g);
-        ctx.fillText(`${g}분임`, X(finalCol), Y(this.rows) + 22);
+    ctx.font='12px Malgun Gothic,sans-serif';
+    for(let c=0;c<this.n;c++){
+      if(!showPaths){ ctx.fillStyle='#445566'; ctx.fillText('?',X(c),Y(this.rows)+22); }
+      else {
+        ctx.fillStyle='#95d5b2'; ctx.fillText(`국립공원 ${c+1}순위`,X(c),Y(this.rows)+20);
+        ctx.fillStyle='#90c2fc'; ctx.fillText(`지방체험 ${this.n-c}순위`,X(c),Y(this.rows)+37);
       }
     }
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  PHASE MANAGEMENT
-// ═══════════════════════════════════════════════════════════════════
-function goPhase(n) {
-  document.querySelectorAll('.phase-section').forEach((el, i) => el.classList.toggle('active', i === n));
-  for (let i = 0; i <= 5; i++) {
-    const d = document.getElementById(`dot${i}`);
-    d.className = 'step-dot' + (i < n ? ' done' : i === n ? ' active' : '');
+// ════════════════════════════════════════════════
+function goPhase(n){
+  document.querySelectorAll('.phase-section').forEach((el,i)=>el.classList.toggle('active',i===n));
+  for(let i=0;i<=5;i++){
+    const d=document.getElementById(`dot${i}`);
+    d.className='step-dot'+(i<n?' done':i===n?' active':'');
   }
-  document.getElementById('phaseBadge').textContent = PHASE_NAMES[n] || '';
+  document.getElementById('phaseBadge').textContent=PHASE_NAMES[n]||'';
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  PHASE 0 – STATUS GRID
-// ═══════════════════════════════════════════════════════════════════
-function buildStatusGrid() {
-  const grid = document.getElementById('statusGrid');
-  grid.innerHTML = '';
-  for (let i = 1; i <= 18; i++) {
-    const d = document.createElement('div');
-    d.className = 'sg-item'; d.id = `sg${i}`;
-    d.innerHTML = `<span class="sg-check">✅</span><div class="sg-num">${i}</div><div class="sg-lbl">대기중</div>`;
-    grid.appendChild(d);
+// ════════════════════════════════════════════════
+//  PHASE 0
+// ════════════════════════════════════════════════
+function buildStatusGrid(){
+  const g=document.getElementById('statusGrid'); g.innerHTML='';
+  for(let i=1;i<=18;i++){
+    const d=document.createElement('div'); d.className='sg-item'; d.id=`sg${i}`;
+    d.innerHTML=`<span class="sg-check">✅</span><div class="sg-num">${i}</div><div class="sg-lbl">대기중</div>`;
+    g.appendChild(d);
   }
 }
-
-function markSubmitted(num, yes) {
-  const el = document.getElementById(`sg${num}`);
-  if (!el) return;
-  el.classList.toggle('submitted', yes);
-  el.querySelector('.sg-lbl').textContent = yes ? '입력완료' : '대기중';
+function markSubmitted(num,yes){
+  const el=document.getElementById(`sg${num}`); if(!el)return;
+  el.classList.toggle('submitted',yes);
+  el.querySelector('.sg-lbl').textContent=yes?'입력완료':'대기중';
 }
-
-function updateCount(n) {
-  document.getElementById('cntNum').textContent = n;
-  document.getElementById('progBar').style.width = (n / 18 * 100) + '%';
-  document.getElementById('btnReveal').disabled = n < 18;
-  if (n >= 18) {
-    document.getElementById('revealHint').textContent = '✅ 모든 분임이 입력했습니다!';
-    document.getElementById('revealHint').style.color = 'var(--green)';
+function updateCount(n){
+  document.getElementById('cntNum').textContent=n;
+  document.getElementById('progBar').style.width=(n/18*100)+'%';
+  document.getElementById('btnReveal').disabled=n<18;
+  if(n>=18){
+    document.getElementById('revealHint').textContent='✅ 모든 분임이 입력했습니다!';
+    document.getElementById('revealHint').style.color='var(--green)';
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  REVEAL
-// ═══════════════════════════════════════════════════════════════════
-async function doReveal() {
-  const res = await fetch('/api/reveal', {method:'POST'});
-  const d   = await res.json();
-  if (!res.ok) alert(d.error);
+// ════════════════════════════════════════════════
+async function doReveal(){
+  const res=await fetch('/api/reveal',{method:'POST'});
+  const d=await res.json(); if(!res.ok) alert(d.error);
 }
-
-async function forceReveal() {
-  if (!confirm('미입력 분임이 있어도 결과를 공개하시겠습니까?')) return;
-  await fetch('/api/force-reveal', {method:'POST'});
+async function forceReveal(){
+  if(!confirm('미입력 분임이 있어도 결과를 공개하시겠습니까?')) return;
+  await fetch('/api/force-reveal',{method:'POST'});
 }
-
-function processReveal() {
-  const entries = Object.entries(votes).map(([n,v]) => ({num:parseInt(n), park:v.park, region:v.region}));
-
-  // Park ranking (desc by park)
-  const byPark = [...entries].sort((a,b) => b.park - a.park || a.num - b.num);
-  // Region ranking (desc by region)
-  const byRegion = [...entries].sort((a,b) => b.region - a.region || a.num - b.num);
-
-  // Find tie groups (same park score = same region score since sum=100)
-  const byScore = {};
-  entries.forEach(e => { const k = e.park.toFixed(1); (byScore[k] = byScore[k]||[]).push(e.num); });
-  tieGroups = Object.values(byScore).filter(g => g.length > 1);
-
-  parkRanking   = byPark.map(e => ({...e}));
-  regionRanking = byRegion.map(e => ({...e}));
-
-  buildScoreTables(byPark, byRegion);
+function processReveal(){
+  const entries=Object.entries(votes).map(([n,v])=>({num:parseInt(n),park:v.park,region:v.region}));
+  const byPark  =[...entries].sort((a,b)=>b.park  -a.park  ||a.num-b.num);
+  const byRegion=[...entries].sort((a,b)=>b.region-a.region||a.num-b.num);
+  const byScore={};
+  entries.forEach(e=>{const k=e.park.toFixed(1);(byScore[k]=byScore[k]||[]).push(e.num);});
+  tieGroups=Object.values(byScore).filter(g=>g.length>1);
+  parkRanking  =byPark.map(e=>({...e}));
+  regionRanking=byRegion.map(e=>({...e}));
+  buildScoreTables(byPark,byRegion);
   goPhase(1);
 }
-
-function buildScoreTables(byPark, byRegion) {
-  const tiedNums = new Set(tieGroups.flat());
-
-  function fillTbody(tbodyId, rows, scoreKey, tdClass) {
-    const tbody = document.getElementById(tbodyId);
-    tbody.innerHTML = '';
-    rows.forEach((e, idx) => {
-      const tr = document.createElement('tr');
-      tr.className = 'fade-in';
-      tr.style.animationDelay = (idx * 0.04) + 's';
-      tr.innerHTML = `
-        <td class="td-rank">${idx + 1}</td>
-        <td class="td-group">${e.num}분임</td>
-        <td class="${tdClass}">${e[scoreKey].toFixed(1)}</td>
-        <td>${tiedNums.has(e.num) ? '<span class="tie-badge">동점</span>' : '—'}</td>`;
-      tbody.appendChild(tr);
+function buildScoreTables(byPark,byRegion){
+  const tied=new Set(tieGroups.flat());
+  function fill(id,rows,key,cls){
+    const tb=document.getElementById(id); tb.innerHTML='';
+    rows.forEach((e,i)=>{
+      const tr=document.createElement('tr'); tr.className='fade-in'; tr.style.animationDelay=(i*.04)+'s';
+      tr.innerHTML=`<td class="td-rank">${i+1}</td><td class="td-group">${e.num}분임</td>
+        <td class="${cls}">${e[key].toFixed(1)}</td>
+        <td>${tied.has(e.num)?'<span class="tie-badge">동점</span>':'—'}</td>`;
+      tb.appendChild(tr);
     });
   }
-
-  fillTbody('scoreParkTbody',   byPark,   'park',   'td-park');
-  fillTbody('scoreRegionTbody', byRegion, 'region', 'td-region');
+  fill('scoreParkTbody',  byPark,  'park',  'td-park');
+  fill('scoreRegionTbody',byRegion,'region','td-region');
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  PHASE 2 – LADDER (COMBINED)
-// ═══════════════════════════════════════════════════════════════════
-function goPhase2() {
-  goPhase(2);
-  ladderResults   = {};
-  ladderConfirmed = false;
-
-  if (tieGroups.length === 0) {
-    document.getElementById('ladderArea').innerHTML = `
-      <div class="card" style="text-align:center;padding:48px;">
-        <div style="font-size:52px;margin-bottom:14px;">🎉</div>
-        <div style="font-size:22px;font-weight:bold;color:var(--green);">동점 없음</div>
+// ════════════════════════════════════════════════
+//  PHASE 2 – LADDER (separate per tie group)
+// ════════════════════════════════════════════════
+function goPhase2(){
+  goPhase(2); ladders=[]; ladderDone=[]; ladderResults={};
+  if(tieGroups.length===0){
+    document.getElementById('ladderArea').innerHTML=`
+      <div class="card" style="text-align:center;padding:52px;">
+        <div style="font-size:54px;margin-bottom:16px;">🎉</div>
+        <div style="font-size:24px;font-weight:bold;color:var(--green);">동점 없음</div>
         <div style="color:var(--muted);margin-top:8px;">사다리타기 없이 바로 선택을 진행합니다</div>
       </div>`;
-    document.getElementById('btnStartSel').disabled = false;
+    document.getElementById('btnStartSel').disabled=false;
     return;
   }
-
-  // Flatten all tied groups into ONE combined ladder
-  // Order: by score descending (higher score tie group first)
-  const sortedTieGroups = [...tieGroups].sort((a, b) => {
-    return votes[String(b[0])].park - votes[String(a[0])].park;
-  });
-  const allTied = sortedTieGroups.flat();
-  combinedLadder = new LadderGame(allTied, sortedTieGroups);
-
-  renderLadder();
+  tieGroups.forEach(g=>{ ladders.push(new LadderGame(g)); ladderDone.push(false); });
+  renderLadders();
 }
 
-function renderLadder() {
-  const area = document.getElementById('ladderArea');
-
-  // Legend for tie groups
-  const legendHtml = tieGroups.map((g, i) => {
-    const score = votes[String(g[0])].park.toFixed(1);
-    return `<span style="background:${TIE_COLORS[i%TIE_COLORS.length]}22;
-      border:1px solid ${TIE_COLORS[i%TIE_COLORS.length]};
-      border-radius:6px; padding:4px 10px; font-size:12px; color:${TIE_COLORS[i%TIE_COLORS.length]};">
-      동점그룹${i+1}: ${g.map(n=>`${n}분임`).join('=')} (${score}점)
-    </span>`;
-  }).join('');
-
-  area.innerHTML = `
-    <div class="card">
-      <div class="card-title">🎲 동점자 통합 사다리타기</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">${legendHtml}</div>
-      <div class="ladder-canvas-wrap">
-        <canvas class="ladder-cv" id="lcv0"></canvas>
+function renderLadders(){
+  const area=document.getElementById('ladderArea'); area.innerHTML='';
+  tieGroups.forEach((group,idx)=>{
+    const ladder=ladders[idx], isDone=ladderDone[idx];
+    const isActive=!isDone&&(idx===0||ladderDone[idx-1]);
+    const div=document.createElement('div');
+    div.className='card fade-in'; div.id=`lcard${idx}`;
+    if(!isActive&&!isDone) div.style.opacity='0.4';
+    const color=TIE_COLORS[idx%TIE_COLORS.length];
+    div.innerHTML=`
+      <div class="card-title" style="color:${color};">
+        🎲 동점 처리 ${idx+1}/${tieGroups.length} :
+        ${group.map(n=>`<strong>${n}분임</strong>`).join(' = ')}
+        <span style="color:var(--muted);font-size:12px;font-weight:normal;">
+          (국립공원 ${votes[String(group[0])].park.toFixed(1)}점)
+        </span>
+        ${isDone?`<span style="color:var(--green);margin-left:10px;">✓ 확정</span>`:''}
       </div>
-      ${ladderConfirmed ? renderLadderResult() : `
-        <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
-          <button class="btn btn-shuffle" onclick="shuffleLadder()">🔀 사다리 섞기</button>
-          <button class="btn btn-gold" onclick="confirmLadder()" style="font-size:14px;">✓ 사다리 확정</button>
-        </div>`}
-    </div>`;
-
-  setTimeout(() => combinedLadder.draw('lcv0', ladderConfirmed), 50);
+      <div class="ladder-canvas-wrap">
+        <canvas class="ladder-cv" id="lcv${idx}"></canvas>
+      </div>
+      ${isDone ? renderLadderResult(idx) : `
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+          <button class="btn btn-shuffle" onclick="shuffleLadder(${idx})">🔀 사다리 섞기</button>
+          <button class="btn btn-gold" style="font-size:14px;" onclick="confirmLadder(${idx})">✓ 사다리 확정</button>
+        </div>`}`;
+    area.appendChild(div);
+    setTimeout(()=>ladder.draw(`lcv${idx}`,isDone),50);
+  });
+  document.getElementById('btnStartSel').disabled=!ladderDone.every(Boolean);
 }
 
-function shuffleLadder() {
-  combinedLadder.shuffle();
-  combinedLadder.draw('lcv0', false);
-}
+function shuffleLadder(idx){ ladders[idx].shuffle(); ladders[idx].draw(`lcv${idx}`,false); }
 
-function confirmLadder() {
-  ladderConfirmed = true;
-
-  // For each tie group, determine relative rank by comparing their landing positions
-  for (const tieGroup of tieGroups) {
-    const members = tieGroup
-      .map(g => ({ g, pos: combinedLadder.positions[combinedLadder.groups.indexOf(g)] }))
-      .sort((a, b) => a.pos - b.pos);
-
-    members.forEach((item, rankIdx) => {
-      ladderResults[item.g] = {
-        park:   rankIdx,
-        region: (tieGroup.length - 1) - rankIdx,
-      };
-    });
-  }
-
+function confirmLadder(idx){
+  ladderDone[idx]=true;
+  const pr=ladders[idx].parkRanks(), rr=ladders[idx].regionRanks();
+  ladders[idx].groups.forEach(g=>{ ladderResults[g]={park:pr[g],region:rr[g]}; });
+  ladders[idx].draw(`lcv${idx}`,true);
   applyLadderResults();
-  combinedLadder.draw('lcv0', true);
-  setTimeout(renderLadder, 100);
-  document.getElementById('btnStartSel').disabled = false;
+  setTimeout(renderLadders,300);
 }
 
-function renderLadderResult() {
-  let html = '<div class="ladder-result-section">';
-  tieGroups.forEach((tg, i) => {
-    const members = tg
-      .map(g => ({ g, pr: ladderResults[g]?.park ?? 0, rr: ladderResults[g]?.region ?? 0 }))
-      .sort((a, b) => a.pr - b.pr);
-    const color = TIE_COLORS[i % TIE_COLORS.length];
-    html += `
-      <div class="tie-result-block" style="border-color:${color}44;">
-        <div class="tie-result-title" style="color:${color};">
-          동점그룹${i+1} 결과 — ${tg.map(n=>`${n}분임`).join(' = ')}
-          (${votes[String(tg[0])].park.toFixed(1)}점)
-        </div>
-        <div class="lri-row">
-          ${members.map(m => `
-            <div class="lri">
-              <div class="lri-group" style="color:${color};">${m.g}분임</div>
-              <div class="lri-park">🏔️ 국립공원 ${m.pr+1}순위</div>
-              <div class="lri-region">🗺️ 지방체험 ${m.rr+1}순위</div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  });
-  html += '</div>';
-  return html;
+function renderLadderResult(idx){
+  const ladder=ladders[idx], pr=ladder.parkRanks();
+  const items=ladder.groups.map(g=>({g,pr:pr[g],rr:(ladder.n-1)-pr[g]})).sort((a,b)=>a.pr-b.pr);
+  return `<div class="lri-row">${items.map(m=>`
+    <div class="lri">
+      <div class="lri-group">${m.g}분임</div>
+      <div class="lri-park">🏔️ 국립공원 ${m.pr+1}순위</div>
+      <div class="lri-region">🗺️ 지방체험 ${m.rr+1}순위</div>
+    </div>`).join('')}</div>`;
 }
 
-function applyLadderResults() {
-  parkRanking.sort((a, b) => {
-    if (a.park !== b.park) return b.park - a.park;
-    const la = ladderResults[a.num], lb = ladderResults[b.num];
-    if (la && lb) return la.park - lb.park;
-    return a.num - b.num;
+function applyLadderResults(){
+  parkRanking.sort((a,b)=>{
+    if(a.park!==b.park) return b.park-a.park;
+    const la=ladderResults[a.num],lb=ladderResults[b.num];
+    if(la&&lb) return la.park-lb.park; return a.num-b.num;
   });
-  regionRanking.sort((a, b) => {
-    if (a.region !== b.region) return b.region - a.region;
-    const la = ladderResults[a.num], lb = ladderResults[b.num];
-    if (la && lb) return la.region - lb.region;
-    return a.num - b.num;
+  regionRanking.sort((a,b)=>{
+    if(a.region!==b.region) return b.region-a.region;
+    const la=ladderResults[a.num],lb=ladderResults[b.num];
+    if(la&&lb) return la.region-lb.region; return a.num-b.num;
   });
 }
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  PHASE 3 – PARK SELECTION
-// ═══════════════════════════════════════════════════════════════════
-function startParkPhase() {
+// ════════════════════════════════════════════════
+function startParkPhase(){
   applyLadderResults();
-  parkAssigned = {}; parkCounts = {}; parkHistory = []; parkIdx = 0;
-  PARKS.forEach(p => { parkCounts[p.name] = 0; });
-  goPhase(3);
-  renderParkSel();
+  parkAssigned={}; parkCounts={}; parkHistory=[]; parkIdx=0;
+  PARKS.forEach(p=>{parkCounts[p.name]=0;}); goPhase(3); renderParkSel();
 }
-
-function renderParkSel() {
-  // Banner
-  if (parkIdx < parkRanking.length) {
-    const e = parkRanking[parkIdx];
-    document.getElementById('parkBannerNum').textContent   = `${e.num}분임`;
-    document.getElementById('parkBannerTitle').textContent = `${parkIdx+1}번째 선택 중`;
-    document.getElementById('parkBannerSub').textContent   = `국립공원 배분점수: ${e.park.toFixed(1)}점 · 국립공원을 클릭해 배정하세요`;
-    document.getElementById('btnToRegion').style.display   = 'none';
+function renderParkSel(){
+  if(parkIdx<parkRanking.length){
+    const e=parkRanking[parkIdx];
+    document.getElementById('parkBannerNum').textContent  =`${e.num}분임`;
+    document.getElementById('parkBannerTitle').textContent=`${parkIdx+1}번째 선택 중`;
+    document.getElementById('parkBannerSub').textContent  =`국립공원 배분점수: ${e.park.toFixed(1)}점 · 오른쪽에서 국립공원을 클릭해 배정하세요`;
+    document.getElementById('btnToRegion').style.display  ='none';
   } else {
-    document.getElementById('parkBannerNum').textContent   = '완료!';
-    document.getElementById('parkBannerTitle').textContent = '국립공원 배정 완료';
-    document.getElementById('parkBannerSub').textContent   = '지방체험 선택으로 이동하세요';
-    document.getElementById('btnToRegion').style.display   = 'inline-block';
+    document.getElementById('parkBannerNum').textContent  ='완료!';
+    document.getElementById('parkBannerTitle').textContent='국립공원 배정 완료';
+    document.getElementById('parkBannerSub').textContent  ='지방체험 선택으로 이동하세요';
+    document.getElementById('btnToRegion').style.display  ='inline-block';
   }
-
-  // Rank list
-  const ul = document.getElementById('parkRankList');
-  ul.innerHTML = '';
-  parkRanking.forEach((e, i) => {
-    const li = document.createElement('li');
-    li.className = 'rank-item' + (i===parkIdx?' current':'') + (i<parkIdx?' done':'');
-    const tied = tieGroups.some(g => g.includes(e.num));
-    li.innerHTML = `
-      <span class="ri-pos">${i+1}</span>
+  const ul=document.getElementById('parkRankList'); ul.innerHTML='';
+  parkRanking.forEach((e,i)=>{
+    const li=document.createElement('li');
+    li.className='rank-item'+(i===parkIdx?' current':'')+(i<parkIdx?' done':'');
+    const tied=tieGroups.some(g=>g.includes(e.num));
+    li.innerHTML=`<span class="ri-pos">${i+1}</span>
       <div class="ri-info">
         <div class="ri-group">${e.num}분임</div>
         <div class="ri-score">${e.park.toFixed(1)}점${tied?' (사다리)':''}</div>
-        ${parkAssigned[e.num] ? `<div class="ri-assigned">✓ ${parkAssigned[e.num]}</div>` : ''}
+        ${parkAssigned[e.num]?`<div class="ri-assigned">✓ ${parkAssigned[e.num]}</div>`:''}
       </div>`;
     ul.appendChild(li);
-    if (i === parkIdx) setTimeout(() => li.scrollIntoView({block:'nearest'}), 50);
+    if(i===parkIdx) setTimeout(()=>li.scrollIntoView({block:'nearest'}),50);
   });
-
-  // Park grid
-  const grid = document.getElementById('parkGrid');
-  grid.innerHTML = '';
-  PARKS.forEach(p => {
-    const rem  = p.cap - parkCounts[p.name];
-    const full = rem <= 0;
-    const who  = Object.entries(parkAssigned).filter(([,v])=>v===p.name).map(([k])=>`${k}분임`);
-    const div  = document.createElement('div');
-    div.className = 'place-card' + (full ? ' full' : '');
-    div.innerHTML = `
-      <div class="pc-name">🏔️ ${p.name}</div>
-      <div class="pc-cap">잔여 ${rem}/${p.cap}</div>
-      ${who.length ? `<div class="pc-who">${who.join('<br>')}</div>` : ''}`;
-    if (!full && parkIdx < parkRanking.length) div.onclick = () => assignPark(p.name);
+  const grid=document.getElementById('parkGrid'); grid.innerHTML='';
+  PARKS.forEach(p=>{
+    const rem=p.cap-parkCounts[p.name], full=rem<=0;
+    const who=Object.entries(parkAssigned).filter(([,v])=>v===p.name).map(([k])=>`${k}분임`);
+    const div=document.createElement('div');
+    div.className='place-card'+(full?' full':'');
+    div.innerHTML=`<div class="pc-name">🏔️ ${p.name}</div><div class="pc-cap">잔여 ${rem}/${p.cap}</div>${who.length?`<div class="pc-who">${who.join('<br>')}</div>`:''}`;
+    if(!full&&parkIdx<parkRanking.length) div.onclick=()=>assignPark(p.name);
     grid.appendChild(div);
   });
-
-  document.getElementById('undoParkBtn').disabled = !parkHistory.length;
+  document.getElementById('undoParkBtn').disabled=!parkHistory.length;
 }
-
-async function assignPark(name) {
-  if (parkIdx >= parkRanking.length) return;
-  const num = parkRanking[parkIdx].num;
-  parkAssigned[num] = name; parkCounts[name]++; parkHistory.push({num, name}); parkIdx++;
-  await fetch('/api/assign-park', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({groupNum:num, park:name})});
+async function assignPark(name){
+  if(parkIdx>=parkRanking.length) return;
+  const num=parkRanking[parkIdx].num;
+  parkAssigned[num]=name; parkCounts[name]++; parkHistory.push({num,name}); parkIdx++;
+  await fetch('/api/assign-park',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({groupNum:num,park:name})});
   renderParkSel();
 }
+function undoPark(){ if(!parkHistory.length)return; const l=parkHistory.pop(); delete parkAssigned[l.num]; parkCounts[l.name]--; parkIdx--; renderParkSel(); }
+function skipPark(){ if(parkIdx<parkRanking.length){parkIdx++;renderParkSel();} }
 
-function undoPark() {
-  if (!parkHistory.length) return;
-  const last = parkHistory.pop();
-  delete parkAssigned[last.num]; parkCounts[last.name]--; parkIdx--;
-  renderParkSel();
-}
-function skipPark() { if (parkIdx < parkRanking.length) { parkIdx++; renderParkSel(); } }
-
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  PHASE 4 – REGION SELECTION
-// ═══════════════════════════════════════════════════════════════════
-function startRegionPhase() {
-  regionAssigned = {}; regionCounts = {}; regionHistory = []; regionIdx = 0;
-  REGIONS.forEach(r => { regionCounts[r.name] = 0; });
-  goPhase(4);
-  renderRegionSel();
+// ════════════════════════════════════════════════
+function startRegionPhase(){
+  regionAssigned={}; regionCounts={}; regionHistory=[]; regionIdx=0;
+  REGIONS.forEach(r=>{regionCounts[r.name]=0;}); goPhase(4); renderRegionSel();
 }
-
-function renderRegionSel() {
-  // Banner
-  if (regionIdx < regionRanking.length) {
-    const e = regionRanking[regionIdx];
-    document.getElementById('regionBannerNum').textContent   = `${e.num}분임`;
-    document.getElementById('regionBannerTitle').textContent = `${regionIdx+1}번째 선택 중`;
-    document.getElementById('regionBannerSub').textContent   = `지방체험 배분점수: ${e.region.toFixed(1)}점 · 지방을 클릭해 배정하세요`;
-    document.getElementById('btnToSummary').style.display    = 'none';
+function renderRegionSel(){
+  if(regionIdx<regionRanking.length){
+    const e=regionRanking[regionIdx];
+    document.getElementById('regionBannerNum').textContent  =`${e.num}분임`;
+    document.getElementById('regionBannerTitle').textContent=`${regionIdx+1}번째 선택 중`;
+    document.getElementById('regionBannerSub').textContent  =`지방체험 배분점수: ${e.region.toFixed(1)}점 · 오른쪽에서 지방을 클릭해 배정하세요`;
+    document.getElementById('btnToSummary').style.display   ='none';
   } else {
-    document.getElementById('regionBannerNum').textContent   = '완료!';
-    document.getElementById('regionBannerTitle').textContent = '지방체험 배정 완료';
-    document.getElementById('regionBannerSub').textContent   = '최종 결과를 확인하세요';
-    document.getElementById('btnToSummary').style.display    = 'inline-block';
+    document.getElementById('regionBannerNum').textContent  ='완료!';
+    document.getElementById('regionBannerTitle').textContent='지방체험 배정 완료';
+    document.getElementById('regionBannerSub').textContent  ='최종 결과를 확인하세요';
+    document.getElementById('btnToSummary').style.display   ='inline-block';
   }
-
-  // Rank list
-  const ul = document.getElementById('regionRankList');
-  ul.innerHTML = '';
-  regionRanking.forEach((e, i) => {
-    const li = document.createElement('li');
-    li.className = 'rank-item' + (i===regionIdx?' current blue':'') + (i<regionIdx?' done':'');
-    const tied = tieGroups.some(g => g.includes(e.num));
-    li.innerHTML = `
-      <span class="ri-pos">${i+1}</span>
+  const ul=document.getElementById('regionRankList'); ul.innerHTML='';
+  regionRanking.forEach((e,i)=>{
+    const li=document.createElement('li');
+    li.className='rank-item'+(i===regionIdx?' current blue':'')+(i<regionIdx?' done':'');
+    const tied=tieGroups.some(g=>g.includes(e.num));
+    li.innerHTML=`<span class="ri-pos">${i+1}</span>
       <div class="ri-info">
         <div class="ri-group">${e.num}분임</div>
         <div class="ri-score">${e.region.toFixed(1)}점${tied?' (사다리 역순)':''}</div>
-        ${regionAssigned[e.num] ? `<div class="ri-assigned blue">✓ ${regionAssigned[e.num]}</div>` : ''}
+        ${regionAssigned[e.num]?`<div class="ri-assigned blue">✓ ${regionAssigned[e.num]}</div>`:''}
       </div>`;
     ul.appendChild(li);
-    if (i === regionIdx) setTimeout(() => li.scrollIntoView({block:'nearest'}), 50);
+    if(i===regionIdx) setTimeout(()=>li.scrollIntoView({block:'nearest'}),50);
   });
-
-  // Region grid
-  const grid = document.getElementById('regionGrid');
-  grid.innerHTML = '';
-  REGIONS.forEach(r => {
-    const rem  = r.cap - regionCounts[r.name];
-    const full = rem <= 0;
-    const who  = Object.entries(regionAssigned).filter(([,v])=>v===r.name).map(([k])=>`${k}분임`);
-    const div  = document.createElement('div');
-    div.className = 'place-card blue-theme' + (full ? ' full' : '');
-    div.innerHTML = `
-      <div class="pc-name">🗺️ ${r.name}</div>
-      <div class="pc-cap">잔여 ${rem}/${r.cap}</div>
-      ${who.length ? `<div class="pc-who blue">${who.join('<br>')}</div>` : ''}`;
-    if (!full && regionIdx < regionRanking.length) div.onclick = () => assignRegion(r.name);
+  const grid=document.getElementById('regionGrid'); grid.innerHTML='';
+  REGIONS.forEach(r=>{
+    const rem=r.cap-regionCounts[r.name], full=rem<=0;
+    const who=Object.entries(regionAssigned).filter(([,v])=>v===r.name).map(([k])=>`${k}분임`);
+    const div=document.createElement('div');
+    div.className='place-card blue-theme'+(full?' full':'');
+    div.innerHTML=`<div class="pc-name">🗺️ ${r.name}</div><div class="pc-cap">잔여 ${rem}/${r.cap}</div>${who.length?`<div class="pc-who blue">${who.join('<br>')}</div>`:''}`;
+    if(!full&&regionIdx<regionRanking.length) div.onclick=()=>assignRegion(r.name);
     grid.appendChild(div);
   });
-
-  document.getElementById('undoRegionBtn').disabled = !regionHistory.length;
+  document.getElementById('undoRegionBtn').disabled=!regionHistory.length;
 }
-
-async function assignRegion(name) {
-  if (regionIdx >= regionRanking.length) return;
-  const num = regionRanking[regionIdx].num;
-  regionAssigned[num] = name; regionCounts[name]++; regionHistory.push({num, name}); regionIdx++;
-  await fetch('/api/assign-region', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({groupNum:num, region:name})});
+async function assignRegion(name){
+  if(regionIdx>=regionRanking.length) return;
+  const num=regionRanking[regionIdx].num;
+  regionAssigned[num]=name; regionCounts[name]++; regionHistory.push({num,name}); regionIdx++;
+  await fetch('/api/assign-region',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({groupNum:num,region:name})});
   renderRegionSel();
 }
+function undoRegion(){ if(!regionHistory.length)return; const l=regionHistory.pop(); delete regionAssigned[l.num]; regionCounts[l.name]--; regionIdx--; renderRegionSel(); }
+function skipRegion(){ if(regionIdx<regionRanking.length){regionIdx++;renderRegionSel();} }
 
-function undoRegion() {
-  if (!regionHistory.length) return;
-  const last = regionHistory.pop();
-  delete regionAssigned[last.num]; regionCounts[last.name]--; regionIdx--;
-  renderRegionSel();
-}
-function skipRegion() { if (regionIdx < regionRanking.length) { regionIdx++; renderRegionSel(); } }
-
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  PHASE 5 – SUMMARY
-// ═══════════════════════════════════════════════════════════════════
-function buildSummary() {
-  const pb = document.getElementById('sumPark');
-  pb.innerHTML = '';
-  parkRanking.forEach(e => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${e.num}분임</td><td>${parkAssigned[e.num]||'—'}</td><td>${e.park.toFixed(1)}</td>`;
-    pb.appendChild(tr);
-  });
-  const rb = document.getElementById('sumRegion');
-  rb.innerHTML = '';
-  regionRanking.forEach(e => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${e.num}분임</td><td>${regionAssigned[e.num]||'—'}</td><td>${e.region.toFixed(1)}</td>`;
-    rb.appendChild(tr);
-  });
+// ════════════════════════════════════════════════
+function buildSummary(){
+  const pb=document.getElementById('sumPark'); pb.innerHTML='';
+  parkRanking.forEach(e=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${e.num}분임</td><td>${parkAssigned[e.num]||'—'}</td><td>${e.park.toFixed(1)}</td>`; pb.appendChild(tr); });
+  const rb=document.getElementById('sumRegion'); rb.innerHTML='';
+  regionRanking.forEach(e=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${e.num}분임</td><td>${regionAssigned[e.num]||'—'}</td><td>${e.region.toFixed(1)}</td>`; rb.appendChild(tr); });
   goPhase(5);
 }
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  RESET
-// ═══════════════════════════════════════════════════════════════════
-function openConfirm()  { document.getElementById('confirmOverlay').classList.add('show'); }
-function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('show'); }
-async function doReset() {
-  closeConfirm();
-  await fetch('/api/reset', {method:'POST'});
-}
+// ════════════════════════════════════════════════
+function openConfirm() { document.getElementById('confirmOverlay').classList.add('show'); }
+function closeConfirm(){ document.getElementById('confirmOverlay').classList.remove('show'); }
+async function doReset(){ closeConfirm(); await fetch('/api/reset',{method:'POST'}); }
 
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  SOCKET.IO
-// ═══════════════════════════════════════════════════════════════════
-const socket = io();
-
-socket.on('init', data => {
-  votes = data.votes || {};
-  updateCount(Object.keys(votes).length);
-  Object.keys(votes).forEach(n => markSubmitted(parseInt(n), true));
-  if (data.phase === 'revealed') processReveal();
+// ════════════════════════════════════════════════
+const socket=io();
+socket.on('init',data=>{
+  votes=data.votes||{}; updateCount(Object.keys(votes).length);
+  Object.keys(votes).forEach(n=>markSubmitted(parseInt(n),true));
+  if(data.phase==='revealed') processReveal();
 });
+socket.on('vote-update',data=>{ votes[String(data.groupNum)]=data.vote; markSubmitted(data.groupNum,true); updateCount(data.voteCount); });
+socket.on('phase-change',data=>{ if(data.phase==='revealed'){votes=data.votes;processReveal();} });
+socket.on('reset',()=>{ votes={}; updateCount(0); for(let i=1;i<=18;i++) markSubmitted(i,false); goPhase(0); });
 
-socket.on('vote-update', data => {
-  votes[String(data.groupNum)] = data.vote;
-  markSubmitted(data.groupNum, true);
-  updateCount(data.voteCount);
-});
-
-socket.on('phase-change', data => {
-  if (data.phase === 'revealed') { votes = data.votes; processReveal(); }
-});
-
-socket.on('reset', () => {
-  votes = {};
-  updateCount(0);
-  for (let i = 1; i <= 18; i++) markSubmitted(i, false);
-  goPhase(0);
-});
-
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════
 buildStatusGrid();
-
-fetch('/api/state').then(r => r.json()).then(data => {
-  const url = `https://nhi-selection.onrender.com`;
-  document.getElementById('playerUrl').textContent = url;
-  try {
-    new QRCode(document.getElementById('qrcode'), {
-      text: url, width:120, height:120,
-      colorDark:'#ffd700', colorLight:'#070f1c',
-      correctLevel: QRCode.CorrectLevel.M,
-    });
-  } catch(e) {}
-});
-
 </script>
 </body>
 </html>
